@@ -1,3 +1,9 @@
+class Material:
+    def __init__ (self, title, price, unit):
+        self.title = title
+        self.price = price
+        self.unit = unit
+
 class Supplier:
     def __init__ (self, name, inn, contact, rating):
         self.name = name
@@ -19,11 +25,11 @@ class Supplier:
         print("-" * 30 + f"\nПоставщик\nИмя: {self.name},\nИНН: {self.inn},\nКонтакт: {self.contact},\nРейтинг: {self.rating}\n" + "-" * 30)
 
 class Request:
-    def __init__ (self, item_name, supplier, quantity, price):
-        self.item_name = item_name
+    def __init__ (self, req_id, material, supplier, quantity):
+        self.req_id = req_id
+        self.material = material
         self.supplier = supplier
         self.quantity = quantity
-        self.price = price
 
     def calculate_total(self): # Считает общую сумму
         return self.quantity * self.price
