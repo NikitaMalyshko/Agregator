@@ -1,49 +1,30 @@
-class Material:
-    def __init__ (self, title, price, unit):
-        self.title = title
-        self.price = price
-        self.unit = unit
+from models.supplier import Supplier
+from models.material import Material
+from models.request import Request
+from department import Department
 
-class Supplier:
-    def __init__ (self, name, inn, contact, rating):
-        self.name = name
-        self.inn = inn
-        self.contact = contact
-        self.rating = rating
-        self.orders = []
+# Тестовые данные
+def main():
+    # 1. Создаем "отдел"
+    dept = Department()
 
-    def add_order(self, order_number):
-        self.orders.append(order_number)
+    # 2. Создаем объекты (данные)
+    tgl = Supplier("ЗАО Террагрупп", "1234567890", "zakaz@tglabs.com", 4.8)
+    graphite = Material("Графитовый блок", 1500)
 
-    def change_rating (self, new_rating):
-        if 0 <= new_rating <= 5:
-            self.rating = new_rating
-        else:
-            raise ValueError('Рейтинг должен быть от 0 до 5')
+    # 3. Помещаем их в отдел
+    dept.suppliers.append(tgl)
+    dept.materials.append(graphite)
 
-    def display_info(self):
-        print("-" * 30 + f"\nПоставщик\nИмя: {self.name},\nИНН: {self.inn},\nКонтакт: {self.contact},\nРейтинг: {self.rating}\n" + "-" * 30)
+    # 4. Создаем заявку (взаимодействие объектов)
+    req_1 = Request(material=graphite, supplier=tgl, quantity=10)
 
-class Request:
-    def __init__ (self, req_id, material, supplier, quantity):
-        self.req_id = req_id
-        self.material = material
-        self.supplier = supplier
-        self.quantity = quantity
+    # 5. Отправляем и выводим
+    req_1.send()
 
-    def calculate_total(self): # Считает общую сумму
-        return self.quantity * self.price
+    print("\n--- Информация о поставщиках ---")
+    dept.show_all_suppliers()
 
-    def send(self):
-        print("-" * 30 + f"\nЗаявка на '{self.item_name}' была успешно отправлена!")
-        print(f"Поставщик: {self.supplier.name}")
-        print(f"Контакт для связи: {self.supplier.contact}\n" + "-" * 30)
 
-tgl = Supplier("ЗАО Террагрупп лабс", "7621234657", "zakaz@tglabs.com", 4.8)
-tgl.add_order("PO-001")
-tgl.display_info()
-print("Заказы tgl: ", tgl.orders)
-
-req_1 = Request("Графитовый блок", tgl)
-req_1.send()
-
+if __name__ == "__main__":
+    main()
