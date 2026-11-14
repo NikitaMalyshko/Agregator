@@ -19,9 +19,11 @@ class Supplier:
         print("-" * 30 + f"\nПоставщик\nИмя: {self.name},\nИНН: {self.inn},\nКонтакт: {self.contact},\nРейтинг: {self.rating}\n" + "-" * 30)
 
 class Request:
-    def __init__ (self, item_name, supplier):
+    def __init__ (self, item_name, supplier, quantity, price):
         self.item_name = item_name
         self.supplier = supplier
+        self.quantity = quantity
+        self.price = price
 
     def send(self):
         print("-" * 30 + f"\nЗаявка на '{self.item_name}' была успешно отправлена!")
