@@ -25,6 +25,9 @@ class Request:
         self.quantity = quantity
         self.price = price
 
+    def calculate_total(self): # Считает общую сумму
+        return self.quantity * self.price
+
     def send(self):
         print("-" * 30 + f"\nЗаявка на '{self.item_name}' была успешно отправлена!")
         print(f"Поставщик: {self.supplier.name}")
